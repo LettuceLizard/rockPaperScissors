@@ -9,8 +9,17 @@ class mainWindow():
 	def __init__(self, master, rps, width=400, height=400):
 		self.master = master
 		self.canvas = tk.Canvas(master, width=width, height=height)
+		self.rps = rps
+
+		self.rock = tk.Button(self.master, text= "Pick rock", command=lambda: rps.setChoice("rock"))
+		self.paper = tk.Button(self.master, text= "Pick paper", command=lambda: rps.setChoice("paper"))
+		self.scissors = tk.Button(self.master, text= "Pick scissors", command=lambda: rps.setChoice("scissors"))
+
 		
 		"""pack"""
+		self.rock.pack(side="left")
+		self.paper.pack(side="left")
+		self.scissors.pack(side="left")
 		self.canvas.pack()
 
 	def createRectangle(self, posXY):
@@ -19,9 +28,9 @@ class mainWindow():
 
 class rockPaperScissors():
 	def __init__(self):
-		self.player1 = ""
-		self.player2 = ""
 		self.choices = ("paper", "rock", "scissors")
+		self.player1 = ""
+		self.player2 = self.setRandomValue()
 
 	def setChoice(self, string, player1=True):
 		if string in self.choices:
@@ -68,16 +77,13 @@ class rockPaperScissors():
 
 def main():
 	root = tk.Tk()
-	rpsLogic = rockPaperScissors()
-	app = mainWindow(root)
+	rps = rockPaperScissors()
+	app = mainWindow(root, rps)
+	print(rps.player1)
 	root.mainloop()
 
 if __name__ == '__main__':
 	main()
 
 """testa classerna"""
-testRPS = rockPaperScissors()
-testRPS.setChoice("paper")
-testRPS.setRandomValue()
-print(testRPS.player2)
-print(f"player1 wins = {testRPS.getWinner()}")
+print(rps.player1)
